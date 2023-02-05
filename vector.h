@@ -153,6 +153,7 @@ typedef char* string;//sizeof(char*) = 8
 
 #define __traverse__(T)\
     void T##_traverse(T##_vector* vec){\
+        assert(vec->size > 0);\
         if(strcmp(typename(vec->buf[0]), "double") == 0)\
         {\
             for (int i = 0; i < vec->size; i++)\
