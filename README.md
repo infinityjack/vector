@@ -15,3 +15,6 @@
 #
 #or use gcc:
 #   gcc -Wall -w -o main.exe vector_main.c vector.c vector.h
+#
+#   execute:
+#       ./main.exe
