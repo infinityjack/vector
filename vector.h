@@ -44,7 +44,7 @@ typedef char* string;//sizeof(char*) = 8
 
 
 
-//constructor
+//Vector Constructor
 #define __constructor__(T)\
     typedef struct T##_vector{\
         T *buf;\
@@ -52,6 +52,8 @@ typedef char* string;//sizeof(char*) = 8
         size_t size;\
     } T##_vector;
 
+
+//Methods
 #define __new__(T)\
     T##_vector* T##_new(void){\
         T##_vector* vec = malloc(sizeof *vec);\
