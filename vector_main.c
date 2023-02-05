@@ -16,7 +16,7 @@ PRIVATE void int_operations(void)
 {
   int_vector* vdecimal = int_new();
 
-    printf("%d\n", vdecimal->size);
+    printf("%ld\n", vdecimal->size);
     int_append(vdecimal, 0);
     int_append(vdecimal, 0);
     int_append(vdecimal, 0);
