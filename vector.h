@@ -7,6 +7,8 @@
 #include<limits.h>
 #include<math.h>
 #include<assert.h>
+#include<stdarg.h>
+
 
 #define vector_MIN_CAP 4
 
@@ -44,7 +46,7 @@ typedef char* string;//sizeof(char*) = 8
 
 
 
-//Vector Constructor
+//constructor
 #define __constructor__(T)\
     typedef struct T##_vector{\
         T *buf;\
@@ -52,8 +54,7 @@ typedef char* string;//sizeof(char*) = 8
         size_t size;\
     } T##_vector;
 
-
-//Methods
+/*
 #define __new__(T)\
     T##_vector* T##_new(void){\
         T##_vector* vec = malloc(sizeof *vec);\
@@ -64,7 +65,42 @@ typedef char* string;//sizeof(char*) = 8
         assert(vec->buf);\
         return vec;\
     }
+*/
 
+
+#define __new__(T)\
+  T##_vector* T##_new(size_t size,...){\
+    T##_vector* vec = malloc(sizeof *vec);\
+    vec->capacity = vector_MIN_CAP;\
+    vec->buf = malloc(sizeof(T) * vec->capacity);\
+    while(size >= vec->capacity)\
+    {\
+      vec->capacity *= 2;\
+    }\
+    vec->buf = realloc(vec->buf, sizeof(T) * vec->capacity);\
+    if(strcmp(typename(vec->buf[0]), "char") == 0){\
+            if(size != 0){\
+                perror("prevent integral promote excutions.\n");\
+                exit(EXIT_FAILURE);\
+            }\
+        }\
+    else if(strcmp(typename(vec->buf[0]), "float") == 0){\
+            if(size != 0){\
+                perror("prevent integral promote excutions.\n");\
+                exit(EXIT_FAILURE);\
+            }\
+        }\
+    vec->size = size;\
+    va_list ap;\
+    va_start(ap, size);\
+    for(size_t i = 0; i < size; i ++){\
+      vec->buf[i] = va_arg(ap, T);\
+    }\
+    va_end(ap);\
+    return vec;\
+  }
+
+//if(strcmp(typename(vec->buf[0]), "double") == 0)
 
 #define __size__(T)\
     size_t T##_size(T##_vector* vec)\
@@ -155,7 +191,6 @@ typedef char* string;//sizeof(char*) = 8
 
 #define __traverse__(T)\
     void T##_traverse(T##_vector* vec){\
-        assert(vec->size > 0);\
         if(strcmp(typename(vec->buf[0]), "double") == 0)\
         {\
             for (int i = 0; i < vec->size; i++)\
@@ -193,7 +228,6 @@ typedef char* string;//sizeof(char*) = 8
         }\
         else\
         {\
-            exit(-1);\
+            exit(EXIT_FAILURE);\
         }\
     }
-
