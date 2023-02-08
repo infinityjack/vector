@@ -1,20 +1,3 @@
-# vector
-#implement vector using c
-#
-#in windows:
-#   use makefile:
-#       make vector
-#   execute:
-#       .\main.exe
-#
-#in linux:
-#   use makefile:
-#       make vector
-#   execute:
-#       ./main.exe
-#
-#or use gcc:
-#   gcc -Wall -w -o main.exe vector_main.c vector.c vector.h
-#
-#   execute:
-#       ./main.exe
+implement vector using c.
+gcc -Wall -w -o main.exe vector_main.c vector.c vector.h
+or : make vector, then execute
